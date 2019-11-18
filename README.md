@@ -1,25 +1,27 @@
 # Ride 
-A smart contract language for Waves Platform
+Un lenguaje para crear "Contratos inteligentes" en la plataforma Waves
 
-## Introduction
-Ride is Waves Platform’s purpose-designed programming language for smart contracts. It was created to address many of the most serious shortcomings of other popular smart contract languages. The overall idea was to offer a straightforward functional language for dApp development on the Waves blockchain. 
+## Introducción
 
-Ride is easy to learn, especially for beginning developers. This brochure gives a comprehensive introduction to Ride, along with examples and further tools and resources.
+Ride es el lenguaje de programación diseñado específicamente para crear contratos inteligentes en la plataforma Waves. Fue creado para abordar las deficiencias más graves de otros lenguajes de contratos inteligentes. La idea general es ofrecer un lenguaje funcional que sea facil de aprender y que sirva para el desarrollo de dApps en la cadena de bloques Waves.
 
-## Overview
-Ride is a statically-typed, lazy, functional, expression-based compiled programming language. It is designed for building developer-friendly decentralized applications (dApps).
+Ride es fácil de aprender, especialmente para desarrolladores principiantes. Aquí ofrecemos una introducción completa a Ride, junto con ejemplos y otras herramientas y recursos.
 
-Ride is not Turing Complete and its execution engine (virtual machine) doesn’t have any concept of loops or possibility for recursions. Also, there are a number of limitations by design, helping to ensure execution is secure and straightforward. However, we recognize that iterations are necessary and have implemented them as FOLD macros (see below). One of the key features is that the execution cost is always predictable and known in advance, so all code executes as intended with no failed transactions recorded on-chain – removing a significant source of frustration.
+## Resumen
 
-Despite being simple to use, however, Ride is powerful and offers wide-ranging functionality to developers. It’s broadly based on Scala and is also influenced by F# and the functional paradigm.
+Ride es un lenguaje de programación funcional, flojo, de tipo estático y compilado basado en expresiones. Está diseñado para construir aplicaciones descentralizadas amigables para el desarrollador (dApps).
 
-Ride is simple and concise. It will take around an hour to read this brochure, after which you will know everything about the Ride and opportunities that it gives for dApps development.
+Ride no es Turing Complete y su motor de ejecución (máquina virtual) no tiene ningún concepto de bucles o posibilidad de recurrencias. Además, existen varias limitaciones por diseño, las que ayudan a garantizar que la ejecución sea segura y directa. Sin embargo, reconocemos que las iteraciones son necesarias y las hemos implementado como macros FOLD (ver más abajo). Una de las características clave es que el costo de ejecución siempre es predecible y conocido de antemano, por lo que todo el código se ejecuta según lo previsto sin registrar transacciones fallidas en la cadena y eliminando una fuente importante de frustración.
 
-## Disclaimer
-Ride Standard Library (STDLIB) is under active development. At the time of publication, the most up-to-date version is STDLIB_VERSION 3, with STDLIB_VERSION 4 on the way. The brochure covers most of the projected features too. Those which are not part of STDLIB_VERSION 3 are marked with (*).
+A pesar de ser fácil de usar, Ride es potente y ofrece una amplia funcionalidad a los desarrolladores. Se basa ampliamente en Scala y también está influenciado por F# y el paradigma funcional.
+
+Ride es simple y conciso. Le tomará alrededor de una hora leer esta descripción, después de lo cual sabrá todo sobre Ride y las oportunidades que brinda para el desarrollo de dApps.
+
+## Descargo de responsabilidad
+Ride Standard Library (STDLIB) está en constante desarrollo. Al momento de esta publicación, la versión más actualizada es STDLIB_VERSION 3, con STDLIB_VERSION 4 en camino. Aquí se cubren la mayoría de las características a ser desarrolladas tambien. Las cuales no forman parte de STDLIB_VERSION 3 se encuentran marcados con un (*).
 
 ## “Hello world!”
-Let’s start with a familiar example:
+Comencemos con un ejemplo familiar:
 
 ```scala
 func say() = {
@@ -27,30 +29,29 @@ func say() = {
 }
 ```
 
-Functions in Ride are declared with `func` (see further below). Functions do have return types, this is inferred automatically by the compiler, so you don't have to declare them. In the case above the function say returns the string `Hello World!`. There is no `return` statement in the language because Ride is expression-based (everything is an expression), and the last statement is a result of the function.
-
+Las funciones en Ride se declaran con `func` (ver más abajo). Las funciones tienen tipos de retorno, el compilador deduce esto automáticamente, por lo que no tiene que declararlos. En el caso anterior, la función `say` devuelve la string `Hello World!`. No hay una declaración `return` en el lenguaje porque Ride está basado en expresiones (todo es una expresión), y la última declaración es el resultado de la función.
 
 ## Blockchain
 
-Ride was created specifically for execution within a blockchain environment and is optimised for this purpose. Because the blockchain is a shared ledger, located on many computers all around the world, it works a little differently to conventional programming languages.
+Ride fue creado específicamente para su ejecución dentro de un entorno Blockchain y está optimizado para este propósito. Debido a que la blockchain es una cadena decentralizada compartida, ubicada en muchas computadoras en todo el mundo, Ride funciona de manera un poco diferente a los lenguajes de programación convencionales.
 
-Since Ride is designed to be used inside the blockchain, there is no way to access the filesystem or display anything in the console. Instead, Ride functions can read data from the blockchain and return actions as a result, which can then be applied to the blockchain.
+Dado que Ride está diseñado para usarse dentro de la cadena de bloques, no hay forma de acceder al sistema de archivos o mostrar nada en la consola. En cambio, las funciones Ride pueden leer datos de la blockchain y devolver acciones como resultado, que luego se pueden aplicar a la blockchain.
 
 ## Comments
 
-You can add comments to your code much as you can with other languages such as Python:
+Puede agregar comentarios a su código tal como se puede en otros lenguajes, como Python:
 
 ```scala
-# This is a comment line
+# Esta es una linea de comentario
 
-# And there is no multiline comments
+# Y no existen comentarios multilineas
 
-"Hello world!" # You can write comments like here
+"Hello world!" # Puedes escribir comentarios así también
 ```
 
-## Directives
+## Directivas
 
-Every Ride script should start with directives for the compiler. At the time of publication, there are three types of directive, with different possible values.
+Cada script de Ride debe comenzar con directivas para el compilador. En el momento de la publicación, hay tres tipos de directivas, con diferentes valores posibles.
 
 ```scala
 {-# STDLIB_VERSION 3 #-}
@@ -58,24 +59,23 @@ Every Ride script should start with directives for the compiler. At the time of 
 {-# SCRIPT_TYPE ACCOUNT #-}
 ```
 
-`STDLIB_VERSION` sets the version of the standard library. The latest version currently in production is 3.
+`STDLIB_VERSION` establece la versión de la biblioteca estándar. La última versión actualmente en producción es la número 3.
 
-`CONTENT_TYPE` sets the type of the file you're working on. There are different content types, `DAPP` and `EXPRESSION`. The `DAPP` type allows you to define functions and finish execution with certain transactions (changes to the blockchain), as well as using annotations. The `EXPRESSION` type should always return a boolean value, since it’s used as a predicate for transaction validation.
+`CONTENT_TYPE` establece el tipo de archivo en el que está trabajando. Hay diferentes tipos de contenido, `DAPP` y `EXPRESSION`. El tipo `DAPP` le permite definir funciones y finalizar la ejecución con ciertas transacciones (cambios en la cadena de bloques), así como también usar anotaciones. El tipo `EXPRESSION` siempre debe devolver un valor booleano, ya que se utiliza como un predicado para la validación de transacciones.
 
+`SCRIPT_TYPE` establece el tipo de entidad que queremos agregar al script para cambiar su comportamiento predeterminado. Los scripts de Ride se pueden adjuntar a una `ACCOUNT` o a un `ASSET`.
 
-`SCRIPT_TYPE` sets the entity type we want to add to the script to change its default behavior. Ride scripts can be attached to either an `ACCOUNT` or `ASSET`.
-
-Not all combinations of directives are correct. The example below won’t work, because `DAPP` content type is allowed only for accounts, while `EXPRESSION` type is allowed for assets and accounts.
+No todas las combinaciones de directivas son correctas. El siguiente ejemplo no funcionará, porque el tipo de contenido `DAPP` está permitido solo para cuentas, mientras que el tipo `EXPRESSION` está permitido para activos y cuentas.
 
 ```scala
 {-# STDLIB_VERSION 3 #-}
 {-# CONTENT_TYPE DAPP #-}
-{-# SCRIPT_TYPE ASSET #-} # dApp content type is not allowed for an asset
+{-# SCRIPT_TYPE ASSET #-} # El tipo de contenido de dApp no está permitido para un activo
 ```
 
 ## Variables
 
-Variables are declared and initialized with the `let` keyword. This is the only way to declare variables in Ride.
+Las variables se declaran e inicializan con la palabra clave `let`. Esta es la única forma de declarar variables en Ride.
 
 
 ```scala
@@ -83,11 +83,11 @@ let a = "Bob"
 let b = 1
 ```
 
-All variables in Ride are immutable. This means you cannot change the value of a variable after declaration.
+Todas las variables en Ride son inmutables. Esto significa que no puede cambiar el valor de una variable después de la declaración.
 
-Ride is strongly typed and the variable's type is inferred from the value on the right hand side. 
+Ride está fuertemente tipado y el tipo de la variable se infiere del valor en el lado derecho.
 
-Ride allows you to define variables globally, inside any function, or even inside a variable definition.
+Ride le permite definir variables globalmente, dentro de cualquier función o incluso dentro de una definición de variable.
 
 ```scala
 func lazyIsGood() = {
@@ -100,11 +100,11 @@ func lazyIsGood() = {
 }
 ```
 
-The function above will compile and return true as a result, but variable `a` won't be initialized because Ride is lazy, meaning that any unused variables will not be calculated.
+La función anterior compilará y devolverá verdadero como resultado, pero la variable `a` no se inicializará porque Ride es un lenguaje flojo, lo que significa que las variables no utilizadas no serán calculadas.
 
-## Functions
+## Funciones
 
-Functions in Ride can only be used after they are declared.
+Las funciones en Ride solo se pueden usar después de declararlas.
 
 ```scala
 func greet(name: String) = {
@@ -116,9 +116,9 @@ func add(a: Int, b: Int) = {
   m(a) + b
 }
 ```
-The type (`Int`, `String`, etc) comes after the argument’s name.
+El tipo (`Int`, `String`, etc) viene después del nombre del argumento.
 
-As in many other languages, functions should not be overloaded. It helps to keep the code simple, readable and maintainable.
+Como en muchos otros idiomas, las funciones no deben sobrecargarse. Ayuda a mantener el código simple, legible y mantenible.
 
 ```scala
 func calc() = {
@@ -130,14 +130,13 @@ func do() = {
   true
 }
 ```
+La función `callable` tampoco se llamará porque la variable `a` no se utiliza.
 
-The `callable` function will not be called either, because variable a is unused.
+A diferencia de la mayoría de lenguajes, el sombreado de variables no está permitido. La declaración de una variable con un nombre que ya se utiliza en un ámbito primario dará como resultado un error de compilación.
 
-Unlike most languages, variable shadowing is not allowed. Declaring a variable with a name that is already used in a parent scope will result in a compilation error. 
+Las funciones deben definirse antes de ser utilizadas.
 
-Functions should be defined before they are used.
-
-Functions can be invoked in prefix and postfix order:
+Las funciones se pueden invocar en orden de prefijo y sufijo:
 
 ```scala
 let list = [1, 2, 3]
@@ -147,20 +146,20 @@ let a2 = size(list)
 let b1 = getInteger(this, “key”)
 let b2 = this.getInteger(“key”)
 ```
-In these examples `a1` is the same as `a2` and `b1` is the same as `b2`. 
+En estos ejemplos, `a1` es igual a `a2` y `b1` es igual a `b2`.
 
 
-## Basic types
 
-The main basic types and examples are listed below:
+## Tipos basicos
 
+Los principales tipos y ejemplos básicos se enumeran a continuación:
 ```scala
 Boolean    #   true
 String     #   "Hey"
 Int        #   1610
 ByteVector #   base58'...', base64'...', base16'...', fromBase58String("...") etc.
 ```
-We will explore Strings and special types further below.
+Exploraremos cadenas y tipos especiales más abajo.
 
 ### Strings
 
@@ -171,31 +170,31 @@ let coolName = name + " is cool!" # string concatenation by + sign
 name.indexOf("o")  # 1
 ```
 
-Like other data structures in Ride, strings are immutable. String data is encoded using UTF-8.
+Al igual que otras estructuras de datos en Ride, las strings son inmutables. Los datos de strings se codifican con UTF-8.
 
-Only double quotes can be used to denote strings. Strings are immutable, just like all other types. This means that the `substring` function is very efficient: no copying is performed and no extra allocations are required.
+Solo se pueden usar comillas dobles para denotar strings. Las strings son inmutables, como todos los demás tipos. Esto significa que la función `substring` es muy eficiente: no se realiza ninguna copia y no se requieren asignaciones adicionales.
 
-All operators in Ride must have values of the same type on both sides. The following code will not compile because `age` is an `int`:
-
-```scala
-let age = 21
-"Bob is " + age # won't compile
-```
-
-To make it work we have to convert `age` to `string`:
+Todos los operadores en Ride deben tener valores del mismo tipo en ambos lados. El siguiente código no se compilará porque `age` es un `int`:
 
 ```scala
 let age = 21
-"Alice is " + age.toString() # will work!
+"Bob is " + age # no compilara
 ```
 
-## Special types
+Para que funcione tenemos que convertir `age` a `string`:
 
-Ride has few core types, which operate much as they do in Scala.
+```scala
+let age = 21
+"Alice is " + age.toString() # funciona!
+```
 
-### Unit
+## Tipos especiales
 
-There is no `null` in Ride, as is the case in many other languages. Usually, built-in functions return unit value of type `unit` instead of `null`.
+Ride tiene pocos tipos principales, que operan tanto como lo hacen en Scala.
+
+### Unidades
+
+No hay `null` en Ride, como es el caso en muchos otros lenguajes. Por lo general, las funciones integradas devuelven el valor de la unidad de tipo `unit` en lugar de `null`.
 
 ```scala
 "String".indexOf("substring") == unit # true
@@ -203,7 +202,8 @@ There is no `null` in Ride, as is the case in many other languages. Usually, bui
 
 ### Nothing
 
-Nothing is the 'bottom type' of Ride’s type system. No value can be of type Nothing, but an expression of type Nothing can be used everywhere. In functional languages, this is essential for support for throwing an exception:
+Nothing es el "tipo inferior" del sistema de tipos de Ride. Ningún valor puede ser de tipo Nothing, pero una expresión de tipo Nothing puede usarse en todas partes. En lenguajes funcionales, esto es esencial para el soporte al momento de lanzar una excepción:
+
 
 ```scala
 2 + throw() # the expression compiles because
@@ -212,60 +212,60 @@ Nothing is the 'bottom type' of Ride’s type system. No value can be of type No
  	    # which complies to any required type.
 ```
 
-### List
+### Listas
 
 ```scala
-let list = [16, 10, 1997, "birthday"]       # can contain different data types
+let list = [16, 10, 1997, "birthday"]       # puede contener diferentes tipos de datos
 
-let second = list[1]                        # 10 - read second value from the list
+let second = list[1]                        # 10 - lee el segundo valor de la lista
 
 ```
 
-`List` doesn't have any fields, but there are functions in the standard library that make it easier to work with fields.
+`List` no tiene ningún campo, pero hay funciones en la biblioteca estándar que facilitan el trabajo con campos.
 
 ```scala
 let list = [16, 10, 1997, "birthday"]
 
-let last = list[(list.size() - 1)] # "birthday", postfix call of size() function
+let last = list[(list.size() - 1)] # "birthday", llamada del sufijo de la función size() 
 
-let lastAgain = getElement(collection, size(collection) - 1) # the same as above
+let lastAgain = getElement(collection, size(collection) - 1) # Lo mismo que arriba
 ```
 
-`.size()` function returns the length of a list. Note that it's a read-only value, and it cannot be modified by the user. (Note also that `last` could be of more than one type, but this is only inferred when the variable is set.)
+La función `.size()` devuelve la longitud de una lista. Tenga en cuenta que es un valor de solo lectura y que el usuario no puede modificarlo. (Tenga en cuenta también que `last` podría ser de más de un tipo, pero esto solo se infiere cuando se establece la variable).
 
 ```scala
 let initList = [16, 10]                   # init value
 let newList = cons(1997, initList)        # [1997, 16, 10]
 let newList2 = 1997 :: initList           # [1997, 16, 10]
-let newList2 = initList :+ 1              # [16, 10, 1](* Available in STDLIB_VERSION 4)
+let newList2 = initList :+ 1              # [16, 10, 1](* Disponible en STDLIB_VERSION 4)
 let newList2 = [4, 8, 15, 16] ++ [23, 42]     # [4 8 15 16 23 42](*)
 ```
 
-- To prepend an element to an existing list, use the cons function or :: operator 
-- To append an element, use the :+ operator (*)
-- To concatenate 2 lists, use the ++ operator (*)
+- Para anteponer un elemento en una lista ya existente, use la función `cons` u el operador ::
+- Para agregar un elemento, use el operador :+ (*)
+- Para concatenar 2 listas, use el operador ++ (*)
 
 
-### Union types & Type Matching
+### Tipos de unión y correspondencia de tipos
 
 ```scala
 let valueFromBlockchain = getString("3PHHD7dsVqBFnZfUuDPLwbayJiQudQJ9Ngf", "someKey") # Union(String | Unit)
 ```
+Los tipos de unión son una forma muy conveniente de trabajar con abstracciones. `Union (String | Unit)` muestra que el valor es una intersección de estos tipos.
 
-Union types are a very convenient way to work with abstractions. `Union(String | Unit)` shows that the value is an intersection of these types.
-
-The simplest example of `Union` types is given below (please bear in mind that defining custom user types in dApp code will be supported in future versions):
+El ejemplo más simple de los tipos `Union` se da a continuación (tenga en cuenta que la definición de tipos de usuario personalizados en el código dApp será compatible en futuras versiones):
 
 ```scala
 type Human : { firstName: String, lastName: String, age: Int}
 type Cat : {name: String, age: Int }
 ```
 
-`Union(Human | Cat)` is an object with one field, `age`, but we can use pattern matching:
+`Union(Human | Cat)` es un objeto con un campo, `age`, pero podemos usar la coincidencia de patrones
+:
 ```scala
 Human | Cat => { age: Int }
 ```
-Pattern matching is designed to check a value against value type:
+La coincidencia de patrones está diseñada para verificar un valor contra el tipo de dicho valor:
 ```scala
   let t = ...               # Cat | Human
   t.age                     # OK
@@ -275,23 +275,22 @@ Pattern matching is designed to check a value against value type:
     case c: Cat   => c.name
   }
 ```
-
-Type matching is a mechanism for:
+La coincidencia de tipos es un mecanismo para:
 
 ```scala
-let amount = match tx {              # tx is a current outgoing transaction
+let amount = match tx {              # tx es una transacción saliente actual
   case t: TransferTransaction => t.amount
   case m: MassTransferTransaction => m.totalAmount
   case _ => 0
 }
 ```
 
-The code above shows an example of type matching. There are different types of transactions in Waves, and depending on the type, the real amount of transferred tokens can be stored in different fields. If a transaction is `TransferTransaction` or `MassTransferTransaction` we use the corresponding field, while in all other cases, we will get 0.
+El código anterior muestra un ejemplo de coincidencia de tipos. Hay diferentes tipos de transacciones en Waves, y dependiendo del tipo, la cantidad real de tokens transferidos se puede almacenar en diferentes campos. Si una transacción es `TransferTransaction` o `MassTransferTransaction`, usamos el campo correspondiente, mientras que en todos los demás casos, obtendremos 0.
 
-## State reader functions
+## Funciones de lectura de estado
 
 ```scala
-let readOrZero = match getInteger(this, "someKey") { # reading data from state
+let readOrZero = match getInteger(this, "someKey") { # lectura de datos del estado
     case a:Int => a
     case _ => 0
 }
@@ -299,105 +298,99 @@ let readOrZero = match getInteger(this, "someKey") { # reading data from state
 readOrZero + 1
 
 ```
-
-`getString` returns `Union(String | Unit)` because while reading data from the blockchain (the key-value state of accounts) some key-value pairs may not exist.
-
+`getString` devuelve` Union (String | Unit)` porque mientras se lee datos desde la blockchain (el estado `key-value` de las cuentas) algunos pares `key-value` puedieran no existir.
 
 ```scala
 let v = getInteger("3PHHD7dsVqBFnZfUuDPLwbayJiQudQJ9Ngf", "someKey")
-v + 1    # doesn’t compile, forcing a developer to foresee the possibility of non-existing value for the key
+v + 1    # no se compila, lo que obliga a un desarrollador a prever la posibilidad de un valor no existente para la clave
 
-v.valueOrErrorMessage(“oops”) +  1 # compiles and executes
+v.valueOrErrorMessage(“oops”) +  1 # se compila y ejecuta
 
 let realStringValue2 = getStringValue(this, "someKey")
 
 ```
-
-To get the real type and value from Union use the `extract` function, which will terminate the script in case of `Unit` value. Another option is to use specialized functions like `getStringValue`, `getIntegerValue`, etc.
-
+Para obtener el tipo real y el valor de Union, use la función `extract`, que terminará el script en caso de valor `Unit`. Otra opción es utilizar funciones especializadas como `getStringValue`,` getIntegerValue`, etc.
 
 ## If
 
 ```scala
 let amount = 1610
-if (amount > 42) then "I claim that amount is bigger than 42"
+if (amount > 42) then "Afirmo que la cantidad es mayor que 42"
   else if (amount > 100500) then "Too big!"
-  else "I claim something else"
+  else "Afirmo algo mas"
 ```
 
-`if` statements are pretty straightforward and similar to most other languages, with an important difference from some: `if` is an expression, so it must have an `else` clause (the result is assignable to a variable).
+Las declaraciones `if` son bastante directas y similares a la mayoría de los otros lenguajes, con una diferencia importante con algunas: `if` es una expresión, por lo que debe tener una cláusula `else` (el resultado es asignable a una variable).
 
 ```scala
 let a = 16
 let result = if (a > 0) then a / 10 else 0 #
 ```
 
-## Exceptions
+## Excepciones
 
 ```scala
-throw("Here is exception text")
+throw("Aquí hay tun exto de excepción")
 ```
+La función `throw` terminará la ejecución del script inmediatamente, con el texto proporcionado. No hay forma de atrapar las excepciones lanzadas.
 
-The `throw` function will terminate script execution immediately, with the provided text. There is no way to catch thrown exceptions.
-
-The idea of `throw` is to stop execution and send useful feedback to the user.
+La idea de `throw` es detener la ejecución y enviar comentarios útiles al usuario.
 
 
 ```scala
 let a = 12
 if (a != 100) then
-  throw ("a is not 100, actual value is " + a.toString())
-  else throw("A is 100")
+  throw ("a no es 100, el valor actual es " + a.toString())
+  else throw("A es 100")
 ```
 
-## Predefined data structures
+## Estructuras de datos predefinidas
 
-\#**LET THE HOLY WAR BEGIN**
+\#**QUE COMIENCE LA GUERRA SANTA**
 
-Ride has many predefined data structures specific to the Waves blockchain, such as: `Address`, `Alias`, `DataEntry`, `ScriptResult`, `Invocation`, `ScriptTransfer`, `TransferSet`, `WriteSet`, `AssetInfo`, `BlockInfo`.
+Ride tiene muchas estructuras de datos predefinidas específicas para la cadena de bloques Waves, tales como: `Address`, `Alias`, `DataEntry`, `ScriptResult`, `Invocation`, `ScriptTransfer`, `TransferSet`, `WriteSet`, `AssetInfo`, `BlockInfo`.
 
 ```scala
 let keyValuePair = DataEntry("someKey", "someStringValue")
 ```
 
-For example, `DataEntry` is a data structure which describes a key-value pair, e.g. for account storage.
+Por ejemplo, `DataEntry` es una estructura de datos que describe un par clave-valor, p. para almacenamiento de cuenta.
 
 ```scala
 let transferSet = TransferSet([ScriptTransfer("3P23fi1qfVw6RVDn4CH2a5nNouEtWNQ4THs", amount, unit)])
 ```
-All data structures can be used for type checking, pattern matching and their constructors as well.
+Todas las estructuras de datos se pueden usar para la verificación de tipos, la coincidencia de patrones y también sus constructores.
 
-## Loops with FOLD<N>
+## Bucles con FOLD<N>
 
-Since Ride’s virtual machine doesn’t have any concept of loops, they are implemented at compiler level via the FOLD<N> macro. The macro behaves like the ‘fold’ function in other programming languages, taking the input arguments: collection for iteration, starting values of the accumulator and folding function.
+Como la máquina virtual de Ride no tiene ningún concepto de bucles, se implementan a nivel del compilador a través del macro FOLD <N>. El macro se comporta como la función `fold` en otros lenguajes de programación, tomando los argumentos: colección para iteración, valores iniciales del acumulador y función de plegado.
 
-The important aspect is N - the maximum amount of interactions over collections. This is necessary for maintaining predictable computation costs.
+El aspecto más importante es N que define la cantidad máxima de interacciones sobre las colecciones. Esto es necesario para mantener costos de cálculo predecibles.
 
-This code sums the numbers of the array:
+Por ejemplo, este código suma los números de la matriz:
 
 ```scala
 let a = [1, 2, 3, 4, 5]
 func foldFunc(acc: Int, e: Int) = acc + e
-FOLD<5>(a, 0, foldFunc) # returns 15
+FOLD<5>(a, 0, foldFunc) # arrojando el valor 15
 ```
 
-`FOLD<N>` can also be used for filtering, mapping, and other operations. Here’s an example for map with reverse:
-
+`FOLD<N>` también se puede usar para filtrar, mapear y otro tipo de operaciones. Aquí hay un ejemplo de mapa con reversa:
 ```scala
 let a = [1, 2, 3, 4, 5]
 func foldFunc(acc: List[Int], e: Int) = (e + 1) :: acc
-FOLD<5>(a, [], foldFunc) # returns [6, 5, 4, 3, 2]
+FOLD<5>(a, [], foldFunc) # arroja los valores [6, 5, 4, 3, 2]
 ```
 
-## Annotations
+## Anotaciones
 
-Functions can be without annotations, or with `@Callable` or `@Verifier` annotations.
+Las funciones pueden ser sin anotaciones, o con anotaciones `@ Callable` o` @ Verifier`.
 
 ```scala
 func getPayment(i: Invocation) = {
-  let pmt = i.payment.valueOrErrorMessage(“Payment must be attached”)
+  let pmt = i.payment.valueOrErrorMessage(“El pago debe estar adjunto”)
   if (isDefined(pmt.assetId)) then 
-    throw("This function accepts waves tokens only")
+    throw("Esta función acepta solo tokens Waves")
   else
   	pmt.amount
 }
@@ -409,37 +402,37 @@ func pay() = {
 }
 ```
 
-Annotations can bind some values to the function. In the example above, variable `i` was bound to the function `pay` and stored all the information about the fact of invocation (the caller’s public key, address, payment attached to the transaction, fee, transactionId etc.).
+Las anotaciones pueden vincular algunos valores a la función. En el ejemplo anterior, la variable `i` estaba vinculada a la función` pagar` y almacenaba toda la información sobre el hecho de la invocación (clave pública, dirección, pago adjunto a la transacción, tarifa, Id de la transacción, etc.).
 
-Functions without annotations are not available from the outside. You can call them only inside other functions.
-
-```scala
-@Verifier(tx)
-func verifier() = {
-  match tx {
-    case m: TransferTransaction => tx.amount <= 100 # can send up to 100 tokens
-    case _ => false
-  }
-}
-```
-
-### @Verifier annotation
+Las funciones sin anotaciones no están disponibles desde el exterior. Pueden ser llamadas solo dentro de otras funciones.
 
 ```scala
 @Verifier(tx)
 func verifier() = {
   match tx {
-    case m: TransferTransaction => tx.amount <= 100 # can send up to 100 tokens
+    case m: TransferTransaction => tx.amount <= 100 # puede enviar hasta 100 tokens
     case _ => false
   }
 }
 ```
 
-A function with the `@Verifier` annotation sets the rules for outgoing transactions of a decentralized application (dApp). Verifier functions cannot be called from the outside, but they are executed every time an attempt is made to send a transaction from a dApp.
+### @Verifier 
 
-Verifier functions should always return a `Boolean` value as a result, depending on which a transaction will be recorded to the blockchain or not.
+```scala
+@Verifier(tx)
+func verifier() = {
+  match tx {
+    case m: TransferTransaction => tx.amount <= 100 # puede enviar hasta 100 tokens
+    case _ => false
+  }
+}
+```
 
-Expression scripts (with directive `{-# CONTENT_TYPE EXPRESSION #-}`) along with functions annotated by @Verifier should always return a boolean value. Depending on that value the transaction will be accepted (in case of `true`) or rejected (in case of `false`) by the blockchain.
+Una función con la anotación `@ Verifier` establece las reglas para las transacciones salientes de una aplicación descentralizada (dApp). Las funciones del verificador no se pueden invocar desde el exterior, pero se ejecutan cada vez que se intenta enviar una transacción desde una dApp.
+
+Como resultado, las funciones del verificador siempre deben devolver un valor `booleano`, dependiendo de qué transacción se registrará en la cadena de bloques o no.
+
+Los scripts de expresión (con la directiva `{- # CONTENT_TYPE EXPRESSION # -}`) junto con las funciones anotadas por @Verifier siempre deben devolver un valor booleano. Dependiendo de ese valor, la transacción será aceptada (en caso de `verdadero`) o rechazada (en caso de` falso`) por la cadena de bloques.
 
 
 ```scala
@@ -449,14 +442,13 @@ func verifier() = {
 
 }
 ```
+La función `@Verifier()` enlaza la variable `tx`, que es un objeto con todos los campos de la transacción saliente actual.
 
-The Verifier function binds variable `tx`, which is an object with all fields of the current outgoing transaction.
+Sólo una una función `@Verifier()` puede ser definida en cada script de dApp.
 
-A maximum of one `@Verifier()` function can be defined in each dApp script.
+### @Callable
 
-### @Callable annotation
-
-Functions with the `@Callable` annotation can be called (or invoked) from outside of the blockchain. To call a callable function you have to send `InvokeScriptTransaction`.
+Las funciones con la anotación `@ Callable` pueden llamarse (o invocarse) desde fuera de la cadena de bloques. Para llamar a una función invocable, debe utilizarse `InvokeScriptTransaction`.
 
 ```scala
 @Callable(i)
@@ -467,15 +459,14 @@ func giveAway(age: Int) = {
   )
 }
 ```
+Cada persona que invoque la función 'giveAway' recibirá tantos Waves como su edad y la dApp almacenará información sobre el hecho de la transferencia en su estado.
 
-Every caller of `giveAway` function will receive as many WAVES as his age and the dApp will store information about the fact of the transfer in its state.
 
+#### Acciones
 
-#### Actions
+Las acciones iniciales son `DataEntry`, que permiten escribir datos como un par `key-value`, y `ScriptTransfer`, que permite realizar una transferencia de tokens desde la dApp al destinatario. Otras acciones como `Issue / Reissue / Burn` están diseñadas para admitir operaciones nativas de token, así como la familia de operaciones de `Leasing` (Disponible en STDLIB_VERSION 4).
 
-Initial Actions are DataEntry, which allows for writing data as a key-value pair, and ScriptTransfer, a transfer of tokens from dApp to addressee. Other actions such as Issue/Reissue/Burn are designed to support native token operations as well as the family of Leasing operations(Available in STDLIB_VERSION 4).
-
-A list of DataEntry structures in `WriteSet` will set or update key-value pairs in the storage of an account, while a list of ScriptTransfer structures in `TransferSet` will move tokens from the dApp account to other accounts.
+Una lista de estructuras DataEntry en `WriteSet` establecerá o actualizará pares `key-value` en el almacenamiento de una cuenta, mientras que una lista de estructuras ScriptTransfer en `TransferSet` moverá tokens de la cuenta dApp a otras cuentas.
 
 
 ```scala
@@ -485,60 +476,65 @@ func callMePlease(age: Int) = {
 }
 ```
 
-In STDLIB_VERSION 3, `@Callable` functions can return one of the following structures: `ScriptResult`, `WriteSet`, `TransferSet`.
+En STDLIB_VERSION 3, las funciones `@Callable` pueden devolver una de las siguientes estructuras: `ScriptResult`, `WriteSet`, `TransferSet`.
 
-`WriteSet` can contain up to 100 `DataEntry`, while `TransferSet` can contain up to 10 `ScriptTransfer`.
+`WriteSet` puede contener hasta 100 `DataEntry`, mientras que `TransferSet` puede contener hasta 10 `ScriptTransfer`.
 
-## Account vs Asset scripts
+## Scripts de Cuenta vs de Asset
 ```scala
 {-# STDLIB_VERSION 3 #-}
 {-# CONTENT_TYPE EXPRESSION #-}
 {-# SCRIPT_TYPE ACCOUNT #-}
 
 let a = this # Address of the current account
-a == Address(base58'3P9DEDP5VbyXQyKtXDUt2crRPn5B7gs6ujc') # true if script is running on the account with defined address
+a == Address(base58'3P9DEDP5VbyXQyKtXDUt2crRPn5B7gs6ujc') # verdadero si el script se ejecuta en la cuenta con la dirección definida
+
 ```
 Ride scripts on the Waves blockchain can be attached to accounts and assets (`{-# SCRIPT_TYPE ACCOUNT #-}` defines it) and depending on the `SCRIPT_TYPE` keyword this can refer to different entities. For `ACCOUNT` script types this is an `Address` type.
 
 For `ASSET` script type this will have `AssetInfo` type.
+
+Los scripts Ride se pueden adjuntar a cuentas y activos de la cadena de bloques Waves (`{- # SCRIPT_TYPE ACCOUNT # -}` lo define) y, dependiendo de la palabra clave `SCRIPT_TYPE`, esto puede referirse a diferentes entidades. Para los tipos de script `ACCOUNT`, corresponde a un tipo de `Address`.
+
+Para el tipo de script `ASSET`, este tendrá el tipo` AssetInfo`.
 
 ```scala
 {-# STDLIB_VERSION 3 #-}
 {-# CONTENT_TYPE EXPRESSION #-}
 {-# SCRIPT_TYPE ASSET #-}
 let a = this # AssetInfo of the current asset
-a.assetId == AssetInfo(base58'3P9DEDP5VbyXQyKtXDUt2crRPn5B7gs6ujc').assetId # true if script is running for the asset with defined assetId
+a.assetId == AssetInfo(base58'3P9DEDP5VbyXQyKtXDUt2crRPn5B7gs6ujc').assetId # verdadero si el script se está ejecutando para el activo con el ID definido
 ```
 
 
-## Testing and tools
+## Pruebas y herramientas
 
-You can try out Ride in REPL both online at [https://ide.wavesplatform.com/](https://ide.wavesplatform.com/) and on desktop via terminal with `surfboard`:
+Puede probar Ride en REPL tanto en línea en [https://ide.wavesplatform.com/font>(https://ide.wavesplatform.com/)] y en el escritorio a través de la terminal `surfboard`:
 
 ```scala
 > npm i -g @waves/surfboard
 > surfboard repl
 ```
 
-For further development, the following tools and utilities are useful:
+Para un mayor desarrollo, las siguientes herramientas y utilidades son útiles:
 
-- Visual Studio Code plugin: waves-ride
-- The `surfboard` tool will allow you to REPL and run tests on your existing node: [https://github.com/wavesplatform/surfboard]
-- You should also install the Waves Keeper browser extension: [https://wavesplatform.com/products-keeper](https://wavesplatform.com/products-keeper)
-- Online IDE with examples: [https://ide.wavesplatform.com/](https://ide.wavesplatform.com/)
+- Complemento de Visual Studio Code: Waves-Ride
+- La herramienta `surfboard` le permitirá REPLICAR y ejecutar pruebas en su nodo personal: [https://github.com/wavesplatform/surfboard]
+- También debe instalar la extensión del navegador Waves Keeper: [https://wavesplatform.com/products-keeperfont](https://wavesplatform.com/products-keeper)
+- IDE en línea con ejemplos: [https://ide.wavesplatform.com/font](https://ide.wavesplatform.com/)
 
-Further help and information about tools can be found here: [https://wavesplatform.com/developers](https://wavesplatform.com/developers)
-
-
-## Enjoy the Ride!
+Puede encontrar más ayuda e información sobre las herramientas aquí: [https://wavesplatform.com/developersfont](https://wavesplatform.com/developers)
 
 
-Hopefully this brochure will have given you a good introduction to Ride: a straightforward, secure, powerful programming language for smart contracts and dApps on the Waves blockchain. 
+## Enjoy the RIDE!
 
-You should now be able to write your own smart contracts, and have all the tools you need to test them before deploying them to the Waves blockchain.
+Esperemos que este articulo le haya dado una buena introducción a Ride: un lenguaje de programación sencillo, seguro y potente para la creación de contratos inteligentes y dApps en la cadena de bloques Waves.
 
-If you need help learning the basics of the Ride language, you can take the “Mastering Web3 with Waves” course: [https://stepik.org/course/54415/syllabus](https://stepik.org/course/54415/syllabus). 
-Waves also runs developer workshops and hackathons in different locations around the world – check out our community page to stay up to date: [https://wavescommunity.com](https://wavescommunity.com)
+Ahora debería poder escribir sus propios contratos inteligentes y tener todas las herramientas que necesita para probarlos antes de implementarlos en la cadena de bloques Waves.
 
-We hope to meet you online or offline soon!
+Si necesita ayuda para aprender los conceptos básicos del lenguaje Ride, puede tomar el curso "Dominando Web3 con Waves": [https://stepik.org/course/56010/syllabus](https://stepik.org/course/56010/syllabus).
+Waves también organiza talleres de desarrollo y hackatones en diferentes lugares del mundo. Consulte nuestra página manejada por la comunidad para mantenerse actualizado: [https://wavescommunity.com](https://wavescommunity.com)
+
+¡Esperamos conocerte pronto en línea o fuera de línea!
+
 
